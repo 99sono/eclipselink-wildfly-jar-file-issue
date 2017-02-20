@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+        
+        <!-- Persistence unit to create the database on deployment of war. -->
+   <persistence-unit name="CreateDbPU" transaction-type="RESOURCE_LOCAL">
+       <!-- This properties is for using eclipselink. -->
+		<!-- provider>org.eclipse.persistence.jpa.PersistenceProvider</provider -->                
+		<non-jta-data-source>jdbc/SAMPLE_NON_JTA_DS</non-jta-data-source>
+		   
+        <!--
+            vfs:/C:/dev/Widlfly10/wildfly-10.0.0.Final/standalone-orcl/deployments/weblogic-jar-file-createdb.war/WEB-INF/lib/weblogic-jar-file-entities.jar/db/model/SomeEntity.class   
+         -->                      
+        <!--
+             With hibernate, like this it works.
+             
+             INTERESTING CLASSES TO DEBUG:
+                ECLIPSELINK:
+                    (1) org.eclipse.persistence.internal.jpa.metadata.MetadataProcessor
+                        for (URL url : persistenceUnitInfo.getJarFileUrls()) {
+                           classNames.addAll(PersistenceUnitProcessor.getClassNamesFromURL(url, m_loader, null));
+                        }
+                    (2) org.eclipse.persistence.internal.jpa.deployment.PersistenceUnitProcessor 
+                            getClassNamesFromURL
+                    (3) javax.persistence.spi.PersistenceUnitInfo
+                            PersistenceUnitMetadataImpl(version=2.1) [
+                            ....
+                         [vfs:/C:/dev/Widlfly10/wildfly-10.0.0.Final/standalone-orcl/deployments/wildfly-jta-commit-createdb.war/WEB-INF/lib/wildfly-jta-commit-entities.jar/]    
+                 HIBERNATE:
+                    (1) org.hibernate.boot.archive.scan.spi.AbstractScannerImpl
+                        [vfs:/C:/dev/Widlfly10/wildfly-10.0.0.Final/standalone-orcl/deployments/wildfly-jta-commit-createdb.war/WEB-INF/lib/wildfly-jta-commit-entities.jar/ ... ]
+                    
+                            
+        -->
+        <jar-file>lib/weblogic-jar-file-entities.jar</jar-file>                       
+        
+        <!-- class>db.model.SomeEntity</class-->
+        
+        
+		<properties>
+    		<property name="eclipselink.logging.level" value="INFO" />
+    		<property name="eclipselink.logging.level.sql" value="INFO" />
+    		<property name="eclipselink.logging.parameters" value="true" />
+    		<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+    		<property name="eclipselink.ddl-generation.output-mode" value="database"/>		
+    		<property name="javax.persistence.lock.timeout" value="2000" />
+            
+            <!-- These properties are for using eclipselink. -->
+            <!-- property name="jboss.as.jpa.providerModule" value="org.eclipse.persistence" />
+            <property name="eclipselink.target-server" value="JBoss" />
+            <property name="eclipselink.deploy-on-startup" value="true" / -->
+		</properties>
+	</persistence-unit>
+</persistence>
