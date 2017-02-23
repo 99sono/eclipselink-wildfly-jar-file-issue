@@ -1,5 +1,7 @@
 # Verify Wilfly 10.0.0.Final deployment issues of WAR file
 
+ISSUE - Fixed: the problem was the module configuration having been based on stale wildfly eclipselink documentation.
+
 ## MOTIVATION
 When building a .war application comprised by multiple dependencies in its **WEB-INF/lib** folder, the root persistence.xml
 can be put either in the **WEB-INF/classes/META-INF/persistence.xml** folder of the .war file, or within one of the  **WEB-INF/lib/dependency.jar/META-INF/persistence.xml**.
@@ -47,21 +49,22 @@ virtual file system (vfs).
 To use eclipse link:
 - enable the module: C:\dev\Widlfly10\wildfly-10.0.0.Final\modules\system\layers\base\org\eclipse\persistence\main 
 ```
-<module xmlns="urn:jboss:module:1.3" name="org.eclipse.persistence">
-    <properties>
-        <property name="jboss.api" value="private"/>
-    </properties>
-
-    
-     <!-- http://www.hhutzler.de/blog/using-eclipselink-as-a-persistence-provider-in-a-netbeanswildfly-project-for-jta-transaction/  -->
-     <resources>        
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.persistence">
+    <resources>
+    	<!-- 
+		THIS jipijapa-eclipselink-10.0.0.Final.jar is the fix for the jar file problem
+		Here wildfly implements an eclipselink specific archieve factory that knows how to do the scanning
+		of the virtual file system. This needs to be enabled by system propety.
+		This was the issue all along 
+	-->
+        <resource-root path="jipijapa-eclipselink-10.0.0.Final.jar"/>
         <resource-root path="eclipselink-2.6.4.jar">
-			<filter>
-                <exclude path="javax/**" />
-			</filter>
-		</resource-root>
-    </resources> 
-
+           <filter>
+              <exclude path="javax/**" />
+           </filter>
+        </resource-root>
+    </resources>
+ 
     <dependencies>
         <module name="asm.asm"/>
         <module name="javax.api"/>
@@ -71,9 +74,10 @@ To use eclipse link:
         <module name="javax.transaction.api"/>
         <module name="javax.validation.api"/>
         <module name="javax.xml.bind.api"/>
+        <module name="javax.ws.rs.api"/>
         <module name="org.antlr"/>
+        <module name="org.apache.commons.collections"/>
         <module name="org.dom4j"/>
-        <module name="org.javassist"/>
         <module name="org.jboss.as.jpa.spi"/>
         <module name="org.jboss.logging"/>
         <module name="org.jboss.vfs"/>
@@ -189,4 +193,10 @@ In hibernate, the following class is a good starting point for debugging:
 
 ## RELATED
 [what is the right path to refer a jar file in jpa persistence.xml in a web app?](http://stackoverflow.com/questions/4433341/what-is-the-right-path-to-refer-a-jar-file-in-jpa-persistence-xml-in-a-web-app)
+
+[Boss forum - Question and Solution](https://developer.jboss.org/thread/274048?et=notification.send#968943)
+
+[Eclipselink - Question](https://www.eclipse.org/forums/index.php/t/1084566/)
+
+
 
