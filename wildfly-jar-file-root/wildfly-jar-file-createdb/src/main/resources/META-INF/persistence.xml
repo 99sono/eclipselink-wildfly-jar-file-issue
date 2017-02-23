@@ -4,10 +4,13 @@
         
         <!-- Persistence unit to create the database on deployment of war. -->
    <persistence-unit name="CreateDbPU" transaction-type="RESOURCE_LOCAL">
-       <!-- This properties is for using eclipselink. -->
-		<!-- provider>org.eclipse.persistence.jpa.PersistenceProvider</provider -->                
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>                
 		<non-jta-data-source>jdbc/SAMPLE_NON_JTA_DS</non-jta-data-source>
-		   
+		
+        <!--
+            Make sure that Module for ecplilselink is configured according to:
+             https://docs.jboss.org/author/display/WFLY10/JPA+Reference+Guide#JPAReferenceGuide-UsingEclipseLink
+         -->   
         <!--
             vfs:/C:/dev/Widlfly10/wildfly-10.0.0.Final/standalone-orcl/deployments/wildfly-jar-file-createdb.war/WEB-INF/lib/wildfly-jar-file-entities.jar/db/model/SomeEntity.class   
          -->                      
@@ -45,10 +48,20 @@
     		<property name="eclipselink.ddl-generation.output-mode" value="database"/>		
     		<property name="javax.persistence.lock.timeout" value="2000" />
             
-            <!-- These properties are for using eclipselink. -->
-            <!-- property name="jboss.as.jpa.providerModule" value="org.eclipse.persistence" />
-            <property name="eclipselink.target-server" value="JBoss" />
-            <property name="eclipselink.deploy-on-startup" value="true" / -->
+            <!--
+                (a) This property here is uncessary.
+                According to wildfly documentation it will be set automatically based on
+                the provider element at the top of this persistnece.xml.                
+             -->
+            <!-- property name="jboss.as.jpa.providerModule" value="org.eclipse.persistence" / -->
+            <!--
+                    (b) This property can be taken out and it makes the persistence.xml be container specific.
+                    The property to beging with is wrong for wildfly.
+                    And second this proeprty is automatically setup by:
+                    org.jipijapa.eclipselink.EclipseLinkPersistenceProviderAdaptor
+             -->
+            <!-- property name="eclipselink.target-server" value="JBoss" / -->
+            <property name="eclipselink.deploy-on-startup" value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>

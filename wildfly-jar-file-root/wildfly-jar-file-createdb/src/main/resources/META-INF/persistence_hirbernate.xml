@@ -44,11 +44,7 @@
     		<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
     		<property name="eclipselink.ddl-generation.output-mode" value="database"/>		
     		<property name="javax.persistence.lock.timeout" value="2000" />
-            
-            <!-- These properties are for using eclipselink. -->
-            <!-- property name="jboss.as.jpa.providerModule" value="org.eclipse.persistence" />
-            <property name="eclipselink.target-server" value="JBoss" />
-            <property name="eclipselink.deploy-on-startup" value="true" / -->
+                      
 		</properties>
 	</persistence-unit>
 </persistence>

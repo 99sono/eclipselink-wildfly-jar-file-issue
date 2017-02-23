@@ -36,6 +36,7 @@
 
     <system-properties>
         <property name="base.url" value="http://localhost:8080/FIXME_PATH_TO_BASE_SERVER_URL"/>
+        <property name="eclipselink.archive.factory" value="org.jipijapa.eclipselink.JBossArchiveFactoryImpl"/>
     </system-properties>
 
 
@@ -368,13 +369,38 @@
                 <jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue java:jboss/exported/jms/queue/ExpiryQueue"/>
                 <jms-queue name="DLQ" entries="java:/jms/queue/DLQ java:jboss/exported/jms/queue/DLQ"/>
                 <jms-queue name="DeadMessageQueue" entries="java:/queue/DeadMessageQueue java:jboss/exported/queue/DeadMessageQueue"/>
-                <jms-queue name="SampleQueue1" entries="java:/queue/SampleQueue1 java:jboss/exported/queue/SampleQueue1"/>
-                <jms-queue name="SampleQueue2" entries="java:/queue/SampleQueue2 java:jboss/exported/queue/SampleQueue2"/>
-                <jms-topic name="SampleTopic1" entries="java:/topic/SampleTopic1"/>
+                <jms-queue name="DefaultProcessQueue" entries="java:/queue/DefaultProcessQueue java:jboss/exported/queue/DefaultProcessQueue"/>
+                <jms-queue name="Conveyor10AmProcessQueue" entries="java:/queue/Conveyor10AmProcessQueue java:jboss/exported/queue/Conveyor10AmProcessQueue"/>
+                <jms-queue name="Conveyor10AvProcessQueue" entries="java:/queue/Conveyor10AvProcessQueue java:jboss/exported/queue/Conveyor10AvProcessQueue"/>
+                <jms-queue name="Crane30AmProcessQueue" entries="java:/queue/Crane30AmProcessQueue java:jboss/exported/queue/Crane30AmProcessQueue"/>
+                <jms-queue name="Crane30AvProcessQueue" entries="java:/queue/Crane30AvProcessQueue java:jboss/exported/queue/Crane30AvProcessQueue"/>
+                <jms-queue name="Conveyor10AmSendQueue" entries="java:/queue/Conveyor10AmSendQueue java:jboss/exported/queue/Conveyor10AmSendQueue"/>
+                <jms-queue name="Crane30AmSendQueue" entries="java:/queue/Crane30AmSendQueue java:jboss/exported/queue/Crane30AmSendQueue"/>
+                <jms-queue name="Conveyor10AvSendQueue" entries="java:/queue/Conveyor10AvSendQueue java:jboss/exported/queue/Conveyor10AvSendQueue"/>
+                <jms-queue name="Crane30AvSendQueue" entries="java:/queue/Crane30AvSendQueue java:jboss/exported/queue/Crane30AvSendQueue"/>
+                <jms-queue name="NotificationTopic" entries="java:/queue/NotificationTopic java:jboss/exported/queue/NotificationTopic"/>
+                <jms-queue name="Conv10AvSendQueue" entries="java:/queue/Conv10AvSendQueue java:jboss/exported/queue/Conv10AvSendQueue"/>
+                <jms-queue name="LGCS11AvSendQueue" entries="java:/queue/LGCS11AvSendQueue java:jboss/exported/queue/LGCS11AvSendQueue"/>
+                <jms-queue name="Mono82AmSendQueue" entries="java:/queue/Mono82AmSendQueue java:jboss/exported/queue/Mono82AmSendQueue"/>
+                <jms-queue name="LGCS12AvSendQueue" entries="java:/queue/LGCS12AvSendQueue java:jboss/exported/queue/LGCS12AvSendQueue"/>
+                <jms-queue name="LGCS15AmSendQueue" entries="java:/queue/LGCS15AmSendQueue java:jboss/exported/queue/LGCS15AmSendQueue"/>
+                <jms-queue name="LGCS15CmSendQueue" entries="java:/queue/LGCS15CmSendQueue java:jboss/exported/queue/LGCS15CmSendQueue"/>
+                <jms-queue name="LGCS11AmSendQueue" entries="java:/queue/LGCS11AmSendQueue java:jboss/exported/queue/LGCS11AmSendQueue"/>
+                <jms-queue name="LGCS12AmSendQueue" entries="java:/queue/LGCS12AmSendQueue java:jboss/exported/queue/LGCS12AmSendQueue"/>
+                <jms-queue name="Mono82TvSendQueue" entries="java:/queue/Mono82TvSendQueue java:jboss/exported/queue/Mono82TvSendQueue"/>
+                <jms-queue name="Crane31AmSendQueue" entries="java:/queue/Crane31AmSendQueue java:jboss/exported/queue/Crane31AmSendQueue"/>
+                <jms-queue name="LGCS15AvSendQueue" entries="java:/queue/LGCS15AvSendQueue java:jboss/exported/queue/LGCS15AvSendQueue"/>
+                <jms-queue name="KbsSendQueue" entries="java:/queue/KbsSendQueue java:jboss/exported/queue/KbsSendQueue"/>
+                <jms-queue name="Mono82AvSendQueue" entries="java:/queue/Mono82AvSendQueue java:jboss/exported/queue/Mono82AvSendQueue"/>
+                <jms-queue name="Conv10AmSendQueue" entries="java:/queue/Conv10AmSendQueue java:jboss/exported/queue/Conv10AmSendQueue"/>
+                <jms-queue name="LGCS11EmuSendQueue" entries="java:/queue/LGCS11EmuSendQueue java:jboss/exported/queue/LGCS11EmuSendQueue"/>
+                <jms-queue name="Crane33AvSendQueue" entries="java:/queue/Crane33AvSendQueue java:jboss/exported/queue/Crane33AvSendQueue"/>
+                <jms-queue name="Crane34AvSendQueue" entries="java:/queue/Crane34AvSendQueue java:jboss/exported/queue/Crane34AvSendQueue"/>
+                <jms-topic name="NotificationTopic" entries="java:/topic/NotificationTopic"/>
                 <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/>
                 <connection-factory name="RemoteConnectionFactory" entries="java:/jms/RemoteConnectionFactory java:/jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
                 <pooled-connection-factory name="NotificationConnectionFactory" transaction="xa" entries="java:/jms/NotificationConnectionFactory java:jboss/exported/jms/NotificationConnectionFactory" connectors="in-vm"/>
-                <pooled-connection-factory name="SampleJmsFactory" transaction="xa" entries="java:/jms/SampleJmsFactory java:jboss/exported/jms/SampleJmsFactory" connectors="in-vm"/>
+                <pooled-connection-factory name="JcomJmsFactory" transaction="xa" entries="java:/jms/JcomJmsFactory java:jboss/exported/jms/JcomJmsFactory" connectors="in-vm"/>
                 <pooled-connection-factory name="activemq-ra" transaction="xa" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm"/>
             </server>
         </subsystem>
@@ -505,4 +531,5 @@
             <remote-destination host="localhost" port="8080"/>
         </outbound-socket-binding>
     </socket-binding-group>
+
 </server>
